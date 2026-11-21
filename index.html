@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Annexis | Measure what matters</title>
 <meta name="description" content="Actionable metadata readiness for research that can be found, attributed, and reused by people and AI.">
 <meta name="theme-color" content="#f4f7f2">
@@ -428,6 +428,111 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 8px)}
   .mosaic{grid-template-columns:repeat(25,1fr)}
 }
 @media (max-width:380px){.ftr-grid{grid-template-columns:1fr}.brand{font-size:1.25rem}}
+
+/* ===== Mobile polish layer ===== */
+html{-webkit-tap-highlight-color:transparent}
+body{overflow-wrap:break-word}
+h1,h2,h3{text-wrap:balance}
+.lede,.desc,.acc-a p,.ccard p{text-wrap:pretty}
+a,button{touch-action:manipulation}
+
+/* Notch / landscape safe areas */
+.wrap{padding-left:max(var(--gut),env(safe-area-inset-left));padding-right:max(var(--gut),env(safe-area-inset-right))}
+.drawer{padding-left:max(var(--gut),env(safe-area-inset-left));padding-right:max(var(--gut),env(safe-area-inset-right));padding-bottom:max(32px,calc(env(safe-area-inset-bottom) + 20px));overscroll-behavior:contain}
+.ftr{padding-bottom:max(28px,calc(env(safe-area-inset-bottom) + 16px))}
+
+/* FIX: grid/flex children may shrink, so wide content (code block, long labels)
+   can no longer stretch the layout wider than the screen */
+.hero-grid>*,.faq-grid>*,.explorer>*,.sec-head>*,.apanel>*,.stats>*,.cases>*,.cgrid>*,
+.ftr-grid>*,.flow-line>*,.strip .wrap>*,.ppanel>*,.rec>*,.hdr .wrap>*{min-width:0}
+.ppanel,.apanel,.viz,.rec,.acc,.aud-box,.stat{max-width:100%}
+.code{max-width:100%;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.rec-doi,.ag-target code,.todo .f,.trace li{overflow-wrap:anywhere}
+
+@media (max-width:1024px){
+  /* product tabs: clean swipeable pill row */
+  .plist{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:max-content;gap:8px;
+    padding-top:4px;padding-bottom:18px;margin-bottom:-10px;
+    scroll-snap-type:x proximity;scroll-padding-inline:var(--gut);overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+  .ptab{grid-template-columns:auto 1fr;scroll-snap-align:center;background:#fff;border-color:var(--line);padding:12px 18px 12px 12px;min-height:56px}
+  .ptab .tag{display:none}
+  .ptab[aria-selected=true]{border-color:var(--green-900)}
+  .atabs{scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .atab{scroll-snap-align:center;min-height:46px}
+  .drawer a.dl{font-size:clamp(1.35rem,6vw,1.6rem);min-height:56px;display:flex;align-items:center}
+  .seg button{min-height:40px;padding:8px 18px}
+  .link-arrow{padding-block:10px}
+  .ftr li a{display:inline-block;padding:5px 0}
+  .flow-line{grid-template-columns:1fr;gap:0}
+  .conn{width:2px;height:34px;margin:0 auto}
+  .conn::after{width:100%;height:40%;background:linear-gradient(180deg,transparent,var(--lime),transparent);animation:flowy 2.4s linear infinite}
+  .flow h3{max-width:none}
+}
+@keyframes flowy{from{transform:translateY(-100%)}to{transform:translateY(260%)}}
+
+/* Touch devices: no sticky hover states */
+@media (hover:none){
+  .btn:hover,.ccard:hover,.stat:hover,.ptab:hover{transform:none}
+  .btn:hover svg{transform:none}
+  .ccard:hover::after{transform:scaleX(0)}
+  .faq-card:hover .neq b{transform:none}
+  .ftr li a:hover{padding-left:0}
+  .link-arrow:hover{gap:8px}
+  .btn{min-height:48px}
+}
+
+@media (max-width:720px){
+  .hero{padding-top:calc(var(--hdr) + 28px)}
+  .final-wave{height:120px}
+  .hero-wave{height:96px}
+  .acc-q{padding:18px 0;font-size:.98rem;gap:14px}
+  .faq-card,.acc{border-radius:22px}
+  .ppanel,.aud-box,.flow,.stat{border-radius:22px}
+  .ppanel .pnote{padding-top:20px}
+  .outcome{padding:18px}
+  .case{padding:22px}
+  .who span{font-size:.78rem;padding:8px 14px}
+}
+
+@media (max-width:480px){
+  :root{--gut:18px}
+  .btn{white-space:normal;text-align:center;justify-content:center}
+  .hero .cta-row .btn,.final .cta-row .btn{width:100%}
+  .rec{border-radius:20px;padding:18px}
+  .rec-top>div:last-child{width:100%}
+  .seg{display:flex;width:100%}.seg button{flex:1}
+  .rec-score{padding:16px}
+  .next{flex-direction:column;gap:4px}
+  .ppanel{padding:20px}
+  .viz{padding:14px;margin-top:22px}
+  .viz-row{grid-template-columns:1fr auto;gap:6px 10px;padding:8px 0}
+  .viz-row .bar{grid-column:1/-1;order:3}
+  .todo li{grid-template-columns:30px minmax(0,1fr);padding:10px 12px}
+  .todo .imp{grid-column:2;justify-self:start}
+  .code{font-size:.72rem;padding:14px 16px}
+  .ba .rc{padding:12px}
+  .apanel{padding:22px 20px}
+  .atab{padding:10px 12px;font-size:.88rem}
+  .stat{padding:22px 20px}
+  .cost div{grid-template-columns:70px 1fr}
+  .ccard{padding:24px 20px}
+  .ag-proto li{padding:11px 14px}
+  .ag-proto-h{padding:12px 14px}
+  .faq-card{padding:26px 22px}
+  .acc{padding:6px 20px}
+  .ftr-bot{flex-direction:column;gap:8px}
+}
+@media (max-width:360px){
+  .hero h1{font-size:2rem}
+  .h-lg{font-size:1.7rem}
+  .brand{font-size:1.2rem}
+  .chip{font-size:.78rem}
+  .ring{width:92px;height:92px}
+}
+@media (max-height:480px) and (orientation:landscape){
+  .hero{padding-top:calc(var(--hdr) + 20px)}
+  .sec{padding:56px 0}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
@@ -905,7 +1010,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 8px)}
     spyTargets.forEach(function(t,i){ if(t && t.getBoundingClientRect().top<window.innerHeight*.4) cur=i; });
     var last=$('#contact'); if(last && last.getBoundingClientRect().top<window.innerHeight*.5) cur=-1;
     spy.forEach(function(a,i){a.classList.toggle('on',i===cur)});
-    if(!reduce){ var r=$('#rec'); if(r && y<900){ r.style.transform='translateY('+(Math.min(y,600)*-.04)+'px)'; } }
+    if(!reduce){ var r=$('#rec'); if(r && y<900 && window.innerWidth>1024){ r.style.transform='translateY('+(Math.min(y,600)*-.04)+'px)'; } }
     ticking=false;
   }
   window.addEventListener('scroll',function(){ if(!ticking){ticking=true;requestAnimationFrame(onScroll)} },{passive:true});
@@ -1045,7 +1150,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 8px)}
     }
     function loop(t){ if(vis) draw(t); raf=requestAnimationFrame(loop) }
     size(); draw(0);
-    window.addEventListener('resize',function(){size();draw(0)});
+    var lw=cv.clientWidth; window.addEventListener('resize',function(){ if(cv.clientWidth!==lw){lw=cv.clientWidth;size();draw(0)} });
     if(reduce) return;
     if('IntersectionObserver' in window) new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(cv);
     raf=requestAnimationFrame(loop);
